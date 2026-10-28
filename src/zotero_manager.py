@@ -16,6 +16,7 @@ import bibtexparser
 ROOT = Path(__file__).resolve().parents[1]
 DEFAULT_CATEGORIES = ROOT / "categories.json"
 DEFAULT_OUTPUT = ROOT / "output" / "zotero_clean.csv"
+DEFAULT_ADVISOR_PROFILE = ROOT / "advisor_profile.json"
 
 
 def clean_text(value: str | None) -> str:
@@ -147,6 +148,47 @@ def classify(item: Dict[str, str], rules: Dict[str, List[str]]) -> str:
     return scored[0][1]
 
 
+def load_advisor_profile(path: Path) -> Dict[str, object]:
+    return json.loads(path.read_text(encoding="utf-8"))
+
+
+def advisor_relevance(item: Dict[str, str], profile: Dict[str, object]) -> tuple[str, int]:
+    """Return advisor relevance label and a simple transparent score."""
+    authors = clean_text(item.get("authors")).lower()
+    title = clean_text(item.get("title"))
+    title_key = normalize_title(title)
+
+    aliases = [clean_text(x).lower() for x in profile.get("author_aliases", [])]
+    known_titles = {
+        normalize_title(x) for x in profile.get("known_paper_titles", [])
+    }
+    focus_terms = [
+        clean_text(x).lower() for x in profile.get("high_relevance_terms", [])
+    ]
+
+    is_advisor_author = any(alias and alias in authors for alias in aliases)
+    is_known_title = title_key in known_titles if title_key else False
+
+    if is_advisor_author or is_known_title:
+        return "A | 顾洋老师本人论文", 100
+
+    haystack = " ".join(
+        [
+            item.get("title", ""),
+            item.get("keywords", ""),
+            item.get("abstract", ""),
+            item.get("journal", ""),
+        ]
+    ).lower()
+    matched = sum(1 for term in focus_terms if term and term in haystack)
+
+    if matched >= 3:
+        return "B | 与顾洋老师方向高度相关", min(90, 60 + matched * 5)
+    if matched >= 1:
+        return "C | 合成生物学背景文献", 30 + matched * 5
+    return "D | 低相关/待人工判断", 10
+
+
 def mark_duplicates(items: List[Dict[str, str]]) -> None:
     counts: Dict[str, int] = {}
     for item in items:
@@ -181,6 +223,8 @@ def write_csv(items: Iterable[Dict[str, str]], path: Path) -> None:
         "doi",
         "keywords",
         "category",
+        "advisor_tag",
+        "advisor_score",
         "duplicate_key",
         "possible_duplicate",
     ]
@@ -207,6 +251,12 @@ def main() -> None:
         default=DEFAULT_CATEGORIES,
         help="JSON category rule file",
     )
+    parser.add_argument(
+        "--advisor-profile",
+        type=Path,
+        default=DEFAULT_ADVISOR_PROFILE,
+        help="JSON profile used for advisor-specific relevance labels",
+    )
     args = parser.parse_args()
 
     if not args.input.exists():
@@ -214,9 +264,13 @@ def main() -> None:
 
     items = load_items(args.input)
     rules = load_categories(args.categories)
+    advisor_profile = load_advisor_profile(args.advisor_profile)
 
     for item in items:
         item["category"] = classify(item, rules)
+        tag, score = advisor_relevance(item, advisor_profile)
+        item["advisor_tag"] = tag
+        item["advisor_score"] = str(score)
 
     mark_duplicates(items)
     write_csv(items, args.output)
