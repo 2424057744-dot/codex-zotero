@@ -21,6 +21,7 @@ codex-zotero/
 ├─ src/
 │  └─ zotero_manager.py
 ├─ categories.json
+├─ advisor_profile.json
 ├─ requirements.txt
 └─ README.md
 ```
@@ -73,6 +74,8 @@ python src/zotero_manager.py data/library.bib --output output/library_clean.csv
 - doi
 - keywords
 - category
+- advisor_tag
+- advisor_score
 - duplicate_key
 - possible_duplicate
 
@@ -129,3 +132,17 @@ python src/zotero_manager.py data/library.bib --output output/library_clean.csv
 Zotero → 导出 BibTeX/RIS → 放入 `data/` → 运行脚本 → 在 `output/` 查看分类结果和重复项。
 
 后续可继续扩展 Zotero Web API 同步、自动读取摘要、按导师/课题组建立子标签，以及自动生成文献阅读卡片。
+
+
+## 8. 顾洋老师专属标签
+
+脚本会额外生成 `advisor_tag` 和 `advisor_score`：
+
+- **A | 顾洋老师本人论文**：作者中识别到 Gu Yang / Yang Gu，或题名与已录入论文完全匹配；分数 100
+- **B | 与顾洋老师方向高度相关**：命中 3 个及以上核心研究关键词
+- **C | 合成生物学背景文献**：命中 1–2 个核心研究关键词
+- **D | 低相关/待人工判断**：未命中核心关键词
+
+规则维护在 `advisor_profile.json`。目前已录入你提供的 11 篇顾洋老师论文题名，并覆盖 Yarrowia lipolytica、代谢工程、基因组重构、启动子、反义转录调控、生物传感器、天然产物生物合成等关键词。
+
+这个标签用于帮助筛选阅读优先级，不代表论文质量评价。
