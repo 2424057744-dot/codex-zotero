@@ -1,0 +1,45 @@
+{
+  "advisor": "Gu Yang",
+  "author_aliases": [
+    "Gu Yang",
+    "Yang Gu",
+    "Gu, Yang"
+  ],
+  "known_paper_titles": [
+    "High titer production of gastrodin enabled by systematic refactoring of yeast genome and an antisense-transcriptional regulation toolkit",
+    "Multimodule Synthetic Redesign of Intracellular Metabolisms for the High-Titer de Novo Production of Sakuranetin in Yarrowia lipolytica",
+    "Advances in flavonoid and derivative biosynthesis: systematic strategies for the construction of yeast cell factories",
+    "Advances and perspectives in genetic expression and operation for the oleaginous yeast Yarrowia lipolytica",
+    "Characterization of the endogenous promoters in Yarrowia lipolytica for the biomanufacturing applications",
+    "Advances and prospects of transcription-factor-based biosensors in high-throughput screening for cell factories construction",
+    "Synthetic yeast brews neuroactive compounds",
+    "Engineering Yarrowia lipolytica as a chassis for de novo synthesis of five aromatic-derived natural products and chemicals",
+    "Refactoring Ehrlich pathway for high-yield 2-phenylethanol production in Yarrowia lipolytica",
+    "Synthetic redesign of central carbon and redox metabolism for high yield production of N-acetylglucosamine in Bacillus subtilis",
+    "Advances and prospects of Bacillus subtilis cellular factories: From rational design to industrial applications"
+  ],
+  "high_relevance_terms": [
+    "yarrowia lipolytica",
+    "metabolic engineering",
+    "synthetic biology",
+    "microbial cell factory",
+    "cell factory",
+    "genome refactoring",
+    "genome engineering",
+    "pathway engineering",
+    "promoter",
+    "antisense transcription",
+    "transcriptional regulation",
+    "transcription-factor-based biosensor",
+    "biosensor",
+    "natural product biosynthesis",
+    "de novo production",
+    "gastrodin",
+    "sakuranetin",
+    "flavonoid",
+    "2-phenylethanol",
+    "bacillus subtilis",
+    "central carbon metabolism",
+    "redox metabolism"
+  ]
+}
