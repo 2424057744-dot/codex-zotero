@@ -1,0 +1,74 @@
+{
+  "Grain storage CFD / ventilation": [
+    "cfd",
+    "computational fluid dynamics",
+    "grain storage",
+    "grain silo",
+    "grain bin",
+    "aeration",
+    "ventilation",
+    "airflow",
+    "porous media",
+    "pressure drop",
+    "stored grain"
+  ],
+  "Wheat hyperspectral / seed vigor": [
+    "hyperspectral",
+    "seed vigor",
+    "seed viability",
+    "germination",
+    "wheat seed",
+    "spectroscopy",
+    "nir",
+    "near infrared",
+    "spectral imaging"
+  ],
+  "Grain pest control / inert dust": [
+    "stored-product insect",
+    "stored grain insect",
+    "inert dust",
+    "diatomaceous earth",
+    "silica",
+    "grain pest",
+    "phosphine",
+    "fumigation"
+  ],
+  "Mycotoxin sensing / MOF / aptamer": [
+    "mycotoxin",
+    "aflatoxin",
+    "afb1",
+    "deoxynivalenol",
+    "don",
+    "zearalenone",
+    "ochratoxin",
+    "fumonisin",
+    "t-2",
+    "aptamer",
+    "mof",
+    "metal-organic framework",
+    "nanozyme",
+    "colorimetric",
+    "fluorescence"
+  ],
+  "Food biotechnology / fermentation": [
+    "fermentation",
+    "food biotechnology",
+    "lactic acid bacteria",
+    "enzyme engineering",
+    "bioprocess",
+    "food microbiology"
+  ],
+  "Synthetic biology / metabolic engineering": [
+    "synthetic biology",
+    "metabolic engineering",
+    "cell factory",
+    "yarrowia lipolytica",
+    "biosynthesis",
+    "promoter",
+    "genome engineering",
+    "pathway engineering",
+    "bacillus subtilis",
+    "natural product"
+  ],
+  "Other": []
+}
