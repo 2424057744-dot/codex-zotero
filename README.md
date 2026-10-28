@@ -1,14 +1,14 @@
 # codex-zotero
 
-一个用于整理 Zotero 导出文献的轻量工具仓库。
+一个专门用于整理 **合成生物学 / 代谢工程** Zotero 文献的轻量工具仓库。
 
 ## 能做什么
 
 - 读取 Zotero 导出的 **BibTeX (.bib)** 和 **RIS (.ris)** 文件
 - 自动提取题名、作者、年份、期刊、DOI、关键词
-- 按研究主题进行初步分类
+- 判断文献是否属于 **Synthetic biology / metabolic engineering**
 - 检测可能的重复文献（优先 DOI，其次标准化题名）
-- 输出一个便于 Excel / Python / ChatGPT 继续处理的 CSV 文件
+- 输出便于 Excel / Python / ChatGPT 继续处理的 CSV 文件
 
 ## 目录
 
@@ -31,12 +31,10 @@ codex-zotero/
 
 1. 选中“我的文库”或某个分类
 2. 右键 → **导出文库 / 导出分类**
-3. 推荐选择：
-   - BibTeX：`.bib`
-   - RIS：`.ris`
+3. 推荐选择 BibTeX（`.bib`）或 RIS（`.ris`）
 4. 把导出的文件放进本仓库的 `data/` 文件夹
 
-> 暂时不要把 Zotero 的原始 `zotero.sqlite` 数据库直接上传到 GitHub。
+> 不建议把 Zotero 原始 `zotero.sqlite` 数据库直接上传到 GitHub。
 
 ## 2. 安装
 
@@ -48,13 +46,13 @@ pip install -r requirements.txt
 
 ## 3. 使用
 
-处理 BibTeX：
+BibTeX：
 
 ```bash
 python src/zotero_manager.py data/library.bib
 ```
 
-处理 RIS：
+RIS：
 
 ```bash
 python src/zotero_manager.py data/library.ris
@@ -66,15 +64,7 @@ python src/zotero_manager.py data/library.ris
 python src/zotero_manager.py data/library.bib --output output/library_clean.csv
 ```
 
-## 4. 输出
-
-默认输出到：
-
-```text
-output/zotero_clean.csv
-```
-
-字段包括：
+## 4. 输出字段
 
 - title
 - authors
@@ -86,29 +76,29 @@ output/zotero_clean.csv
 - duplicate_key
 - possible_duplicate
 
-## 5. 当前分类规则
+## 5. 当前分类
 
-默认规则写在 `categories.json`，可自行修改关键词。
+只保留：
 
-目前包含：
+- **Synthetic biology / metabolic engineering**
+- **Other**（未匹配到合成生物学关键词的文献）
 
-- Grain storage CFD / ventilation
-- Wheat hyperspectral / seed vigor
-- Grain pest control / inert dust
-- Mycotoxin sensing / MOF / aptamer
-- Food biotechnology / fermentation
-- Synthetic biology / metabolic engineering
-- Other
+关键词规则位于 `categories.json`，当前重点覆盖：
+
+- synthetic biology
+- metabolic engineering
+- microbial cell factory
+- Yarrowia lipolytica
+- genome engineering / genome refactoring
+- pathway engineering
+- promoter / transcriptional regulation
+- biosensor
+- natural product biosynthesis
+- yeast chassis
+- Bacillus subtilis
 
 ## 6. 推荐工作流
 
-Zotero → 导出 BibTeX/RIS → 放入 `data/` → 运行脚本 → 在 `output/` 查看分类和重复项。
+Zotero → 导出 BibTeX/RIS → 放入 `data/` → 运行脚本 → 在 `output/` 查看筛选结果和重复项。
 
-后续可以继续扩展为：
-
-- Zotero Web API 同步
-- 自动补 DOI / PMID
-- 自动生成文献阅读笔记
-- 按课题生成 Collections 建议
-- 根据摘要自动分类
-- 生成 GB/T 7714、APA、Elsevier 等参考文献格式
+后续可以继续扩展为 Zotero Web API 同步、自动阅读摘要、细分“底盘工程 / 代谢通路 / 调控工具 / 天然产物生物合成”等二级标签。
